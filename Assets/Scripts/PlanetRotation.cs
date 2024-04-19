@@ -10,6 +10,7 @@ public class PlanetRotation : MonoBehaviour
    public bool thisObjectwillRotate; 
     void Start()
     {
+        Application.targetFrameRate=90;
         // objeyi belirli bir rotasyonda döndüren fonk.
         if(thisObjectwillRotate)
         {

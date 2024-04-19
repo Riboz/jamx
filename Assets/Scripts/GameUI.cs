@@ -13,8 +13,8 @@ public class GameUI : MonoBehaviour
     {
         switch(Open)
         {
-            case false: FabricPanel.transform.DOLocalMoveX(245,0.5f).SetEase(Ease.OutElastic); FabricButon.transform.DORotate(new Vector3(0,0,180),0.3f); break;
-            case true: FabricPanel.transform.DOLocalMoveX(395,0.5f).SetEase(Ease.OutElastic);  FabricButon.transform.DORotate(new Vector3(0,0,0),0.3f);break;
+            case false: FabricPanel.transform.DOLocalMoveX(760,0.5f).SetEase(Ease.OutElastic); FabricButon.transform.DORotate(new Vector3(0,0,180),0.3f); break;
+            case true: FabricPanel.transform.DOLocalMoveX(1165,0.5f).SetEase(Ease.OutElastic);  FabricButon.transform.DORotate(new Vector3(0,0,0),0.3f);break;
         }
        Open=!Open;
     }
