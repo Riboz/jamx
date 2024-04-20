@@ -94,8 +94,6 @@ static public class LogicalInventory
     }
 }
 
-
-
 public class GameUI : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -103,6 +101,8 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Image FabricPanel, FabricButon, upperPanel;
     [SerializeField] private TMP_Text[] invCountText;
     private bool Open = false;
+    public Button[] EnvButtons;
+    public Sprite[] EnvButtonImage;
     public GameObject InventoryObj;
     public int Chemical, Electric, Info = 1, Ore;
     [SerializeField] private Image currentItemImage;
@@ -116,7 +116,15 @@ public class GameUI : MonoBehaviour
     [Header("Envanterdeki")]
     [SerializeField] private TMP_Text batteryEnvt, chemicalEnvt, oreEnvt, infoEnvt;
 
-    private int[] ImageID = new int[4];
+    public class InventoryItem 
+    {
+        public int ImageID;
+        public Sprite sprt;
+        public LogicalInventory.ItemE itemEnum;
+
+    }
+
+    public InventoryItem[] items = new InventoryItem[4];
     private bool startDrag = false;
 
     public void Start()
@@ -124,30 +132,40 @@ public class GameUI : MonoBehaviour
         StartCoroutine(ManufactoryRoutine());
         StartCoroutine(UpperPanelActivate());
         LogicalInventory.Init();
+        currentItemImage.gameObject.SetActive(false);
 
-        invCountText[0].text = "0";
-        invCountText[1].text = "0";
-        invCountText[2].text = "0";
-        invCountText[3].text = "0";
+        for (int i = 0; i < 4; i++)
+        {
+            items[i] = new InventoryItem();
+            invCountText[i].text = "0";
+        }
 
         for (int i = 0; i < 4; i++) 
         {
             switch (itemImages[i].name) 
             {
                 case "Generator":
-                    ImageID[(int)LogicalInventory.ItemE.Generator] = i;
+                    items[(int)LogicalInventory.ItemE.Generator].ImageID = i;
+                    items[(int)LogicalInventory.ItemE.Generator].sprt = enginesp;
+                    items[(int)LogicalInventory.ItemE.Generator].itemEnum = LogicalInventory.ItemE.Generator;
                     break;
 
                 case "Cooler":
-                    ImageID[(int)LogicalInventory.ItemE.Cooler] = i;
+                    items[(int)LogicalInventory.ItemE.Cooler].ImageID = i;
+                    items[(int)LogicalInventory.ItemE.Cooler].sprt = Coolersp;
+                    items[(int)LogicalInventory.ItemE.Cooler].itemEnum = LogicalInventory.ItemE.Cooler;
                     break;
 
                 case "Medicine":
-                    ImageID[(int)LogicalInventory.ItemE.Medicine] = i;
+                    items[(int)LogicalInventory.ItemE.Medicine].ImageID = i;
+                    items[(int)LogicalInventory.ItemE.Medicine].sprt = Medicinesp;
+                    items[(int)LogicalInventory.ItemE.Medicine].itemEnum = LogicalInventory.ItemE.Medicine;
                     break;
 
                 case "Heater":
-                    ImageID[(int)LogicalInventory.ItemE.Heater] = i;
+                    items[(int)LogicalInventory.ItemE.Heater].ImageID = i;
+                    items[(int)LogicalInventory.ItemE.Heater].sprt = Heatersp;
+                    items[(int)LogicalInventory.ItemE.Heater].itemEnum = LogicalInventory.ItemE.Heater;
                     break;
             }
         }
@@ -180,7 +198,6 @@ public class GameUI : MonoBehaviour
         }
         Open = !Open;
     }
-
     IEnumerator UpperPanelActivate()
     {
         yield return new WaitForSeconds(3f);
@@ -188,6 +205,17 @@ public class GameUI : MonoBehaviour
 
     }
 
+    public void updateInventory(InventoryItem item, int editCount, bool remove = false) 
+    {
+        int index = -1;
+        if (remove)
+            index = LogicalInventory.getItemIndex(item.itemEnum);
+        LogicalInventory.editItem(item.itemEnum, editCount, remove);
+        if (!remove) 
+            index = LogicalInventory.getItemIndex(item.itemEnum);
+
+        invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
+    }
     //Malzeme Üretme fnoksiyonları
     public void BuyHeater()
     {
@@ -203,9 +231,7 @@ public class GameUI : MonoBehaviour
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(Heatersp);
             }
-            LogicalInventory.editItem(LogicalInventory.ItemE.Heater, 1);
-            int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Heater);
-            invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
+            updateInventory(items[(int)LogicalInventory.ItemE.Heater], 1);
             //Üretilen malzeme Malzeme Deposuna gidicek
         }
         else
@@ -230,9 +256,7 @@ public class GameUI : MonoBehaviour
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(Coolersp);
             }
-            LogicalInventory.editItem(LogicalInventory.ItemE.Cooler, 1);
-            int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Cooler);
-            invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
+            updateInventory(items[(int)LogicalInventory.ItemE.Cooler], 1);
             //Üretilen malzeme Malzeme Deposuna gidicek
         }
         else
@@ -252,9 +276,7 @@ public class GameUI : MonoBehaviour
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(enginesp);
             }
-            LogicalInventory.editItem(LogicalInventory.ItemE.Generator, 1);
-            int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Generator);
-            invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
+            updateInventory(items[(int)LogicalInventory.ItemE.Generator], 1);
             //Üretilen malzeme Malzeme Deposuna gidicek
         }
         else
@@ -274,9 +296,7 @@ public class GameUI : MonoBehaviour
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(Medicinesp);
             }
-            LogicalInventory.editItem(LogicalInventory.ItemE.Medicine, 1);
-            int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Medicine);
-            invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
+            updateInventory(items[(int)LogicalInventory.ItemE.Medicine], 1);
             //Üretilen malzeme Malzeme Deposuna gidicek
         }
         else
@@ -376,12 +396,20 @@ public class GameUI : MonoBehaviour
         //Determine which item it ha.
         if (itemImages[LogicalInventory.getItemEnumfromInventory(0).index])
         {
-           
+
             if (currentItemImage.GetComponent<Image>())
             {
-                currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(0).item]];
+                currentItemImage.GetComponent<Image>().sprite = itemImages[items[(int)LogicalInventory.getItemEnumfromInventory(0).item].ImageID];
+                updateInventory(items[(int)LogicalInventory.getItemEnumfromInventory(0).item], 1, true);
                 currentItemImage.gameObject.SetActive(true);
                 startDrag = true;
+
+                if (LogicalInventory.getItemEnumfromInventory(0).count == 0)
+                {
+                    EnvButtonImage[0] = null;
+                    EnvButtons[0].GetComponent<Image>().sprite = null;
+                    EnvButtons[0].GetComponent<Image>().DOFade(0.05f, 0.1f);
+                }
             }
         }
     }
@@ -390,9 +418,17 @@ public class GameUI : MonoBehaviour
         //Determine which item it ha.
         if (itemImages[LogicalInventory.getItemEnumfromInventory(1).index])
         {
-            currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(1).item]];
+            currentItemImage.GetComponent<Image>().sprite = itemImages[items[(int)LogicalInventory.getItemEnumfromInventory(1).item].ImageID];
+            updateInventory(items[(int)LogicalInventory.getItemEnumfromInventory(1).item], 1, true);
             currentItemImage.gameObject.SetActive(true);
             startDrag = true;
+
+            if (LogicalInventory.getItemEnumfromInventory(1).count == 0)
+            {
+                EnvButtonImage[1] = null;
+                EnvButtons[1].GetComponent<Image>().sprite = null;
+                EnvButtons[1].GetComponent<Image>().DOFade(0.05f, 0.1f);
+            }
         }
     }
 
@@ -400,19 +436,34 @@ public class GameUI : MonoBehaviour
     {
         if (itemImages[LogicalInventory.getItemEnumfromInventory(2).index])
         {
-
-            currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(2).item]];
+            currentItemImage.GetComponent<Image>().sprite = itemImages[items[(int)LogicalInventory.getItemEnumfromInventory(2).item].ImageID];
+            updateInventory(items[(int)LogicalInventory.getItemEnumfromInventory(2).item], 1, true);
             currentItemImage.gameObject.SetActive(true);
             startDrag = true;
+
+            if (LogicalInventory.getItemEnumfromInventory(2).count == 0)
+            {
+                EnvButtonImage[2] = null;
+                EnvButtons[2].GetComponent<Image>().sprite = null;
+                EnvButtons[2].GetComponent<Image>().DOFade(0.05f, 0.1f);
+            }
         }
     }
     public void GetItemSlot3()
     {
         if (itemImages[LogicalInventory.getItemEnumfromInventory(3).index])
         {
-            currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(3).item]];
+            currentItemImage.GetComponent<Image>().sprite = itemImages[items[(int)LogicalInventory.getItemEnumfromInventory(3).item].ImageID];
+            updateInventory(items[(int)LogicalInventory.getItemEnumfromInventory(3).item], 1, true);
             currentItemImage.gameObject.SetActive(true);
             startDrag = true;
+
+            if (LogicalInventory.getItemEnumfromInventory(3).count == 0)
+            {
+                EnvButtonImage[3] = null;
+                EnvButtons[3].GetComponent<Image>().sprite = null;
+                EnvButtons[3].GetComponent<Image>().DOFade(0.05f, 0.1f);
+            }
         }
     }
 }

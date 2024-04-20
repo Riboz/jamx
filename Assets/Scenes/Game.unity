@@ -16951,6 +16951,16 @@ MonoBehaviour:
   - {fileID: 538885026}
   - {fileID: 1785722191}
   - {fileID: 465760608}
+  EnvButtons:
+  - {fileID: 1336301255}
+  - {fileID: 986141958}
+  - {fileID: 210270708}
+  - {fileID: 254940168}
+  EnvButtonImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   InventoryObj: {fileID: 2143871943}
   Chemical: 0
   Electric: 0
