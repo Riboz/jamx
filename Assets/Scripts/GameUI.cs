@@ -38,10 +38,10 @@ public class GameUI : MonoBehaviour
     //Malzeme Üretme fnoksiyonları
     public void BuyHeater()
     {
-         if(Electric>0 && Info>0 && Ore>0)
+         if(Chemical>0 && Info>0 && Ore>0&&!InventorySc.Envfull)
         {
             Ore-=1;
-            Electric-=1;
+            Chemical-=1;
             Info-=1;
             infoEnvt.text= Info+"/5";
             batteryEnvt.text=Electric+"/3";
@@ -56,10 +56,10 @@ public class GameUI : MonoBehaviour
     }
     public void BuyCooler()
     {
-         if(Chemical>0 && Info>0 && Ore>0&&!InventorySc.Envfull)
+         if(Electric>0 && Info>0 && Ore>0&&!InventorySc.Envfull)
         {
             Ore-=1;
-            Chemical-=1;
+            Electric-=1;
             Info-=1;
 
             infoEnvt.text= Info+"/5";
