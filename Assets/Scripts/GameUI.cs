@@ -6,6 +6,7 @@ using DG.Tweening;
 using TMPro;
 using System;
 using System.Reflection;
+using Unity.VisualScripting;
 
 
 static public class LogicalInventory
@@ -16,7 +17,7 @@ static public class LogicalInventory
         Cooler = 0,
         Heater = 1,
         Medicine = 2,
-        Electric = 3
+        Generator = 3
 
     }
     public class InventorySlot
@@ -104,8 +105,20 @@ public class GameUI : MonoBehaviour
     private bool Open = false;
     public GameObject InventoryObj;
     public int Chemical, Electric, Info = 1, Ore;
-    
-    
+    [SerializeField] private Image currentItemImage;
+    [SerializeField] private Sprite[] itemImages;
+    [SerializeField] private Camera mainCam;
+
+    //Manufacturing Side
+    public Button batteryMnButton, chemicalMnButton, oreMnButton, infoMnButton;
+    bool batteryB = false, chemicalB = false, oreB = false, infoB = false;
+    public TMP_Text btryTxt, chemicalTxt, oreTxt, infoTxt;
+    [Header("Envanterdeki")]
+    [SerializeField] private TMP_Text batteryEnvt, chemicalEnvt, oreEnvt, infoEnvt;
+
+    private int[] ImageID = new int[4];
+    private bool startDrag = false;
+
     public void Start()
     {
         StartCoroutine(ManufactoryRoutine());
@@ -116,6 +129,49 @@ public class GameUI : MonoBehaviour
         invCountText[1].text = "0";
         invCountText[2].text = "0";
         invCountText[3].text = "0";
+
+        for (int i = 0; i < 4; i++) 
+        {
+            switch (itemImages[i].name) 
+            {
+                case "Generator":
+                    ImageID[(int)LogicalInventory.ItemE.Generator] = i;
+                    break;
+
+                case "Cooler":
+                    ImageID[(int)LogicalInventory.ItemE.Cooler] = i;
+                    break;
+
+                case "Medicine":
+                    ImageID[(int)LogicalInventory.ItemE.Medicine] = i;
+                    break;
+
+                case "Heater":
+                    ImageID[(int)LogicalInventory.ItemE.Heater] = i;
+                    break;
+            }
+        }
+
+    }
+
+    private void Update()
+    {
+        startDrag = true;
+
+
+        if (Input.GetMouseButton(0) && startDrag)
+        {
+            Vector3 cursorPosition = Input.mousePosition;
+            cursorPosition.z = 0f;
+            Vector3 worldPosition = mainCam.ScreenToWorldPoint(cursorPosition);
+            currentItemImage.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
+            
+            if (Input.GetMouseButtonUp(0))
+            {
+                startDrag = false;
+                currentItemImage.gameObject.SetActive(false);
+            }
+        }
     }
     public void FabricaOpen()
     {
@@ -194,12 +250,12 @@ public class GameUI : MonoBehaviour
             Info -= 1;
             infoEnvt.text = Info + "/5";
             batteryEnvt.text = Electric + "/3";
-            if (LogicalInventory.getItemIndex(LogicalInventory.ItemE.Electric) == -1)
+            if (LogicalInventory.getItemIndex(LogicalInventory.ItemE.Generator) == -1)
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(enginesp);
             }
-            LogicalInventory.editItem(LogicalInventory.ItemE.Electric, 1);
-            int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Electric);
+            LogicalInventory.editItem(LogicalInventory.ItemE.Generator, 1);
+            int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Generator);
             invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
             //Üretilen malzeme Malzeme Deposuna gidicek
         }
@@ -230,13 +286,6 @@ public class GameUI : MonoBehaviour
             //kaynak olmadığını belirticek ses ve efekt
         }
     }
-
-    // üRetim Bölgesi
-    public Button batteryMnButton, chemicalMnButton, oreMnButton, infoMnButton;
-    bool batteryB = false, chemicalB = false, oreB = false, infoB = false;
-    public TMP_Text btryTxt, chemicalTxt, oreTxt, infoTxt;
-    [Header("Envanterdeki")]
-    [SerializeField] private TMP_Text batteryEnvt, chemicalEnvt, oreEnvt, infoEnvt;
 
     public void ManufacturingBattery()
     {
@@ -293,7 +342,8 @@ public class GameUI : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(5f);
+            //TODO change it back to 5
+            yield return new WaitForSeconds(0.5f);
 
             if (infoB && Info < 5)
             {
@@ -322,4 +372,64 @@ public class GameUI : MonoBehaviour
 
     }
 
+
+    public void GetItemSlot0()
+    {
+        //Determine which item it ha.
+        if (itemImages[LogicalInventory.getItemEnumfromInventory(0).index])
+        {
+           
+            if (currentItemImage.GetComponent<Image>())
+            {
+                currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(0).item]];
+                currentItemImage.gameObject.SetActive(true);
+                startDrag = true;
+                Debug.Log("if içi");
+
+            }
+        }
+        Debug.Log(LogicalInventory.getItemEnumfromInventory(0).item.ToString());
+
+    }
+    public void GetItemSlot1()
+    {
+        //Determine which item it ha.
+        if (itemImages[LogicalInventory.getItemEnumfromInventory(1).index])
+        {
+            currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(1).item]];
+            currentItemImage.gameObject.SetActive(true);
+            startDrag = true;
+            Debug.Log("if içi");
+        }
+
+        Debug.Log(LogicalInventory.getItemEnumfromInventory(1).item);
+
+    }
+
+    public void GetItemSlot2()
+    {
+        if (itemImages[LogicalInventory.getItemEnumfromInventory(2).index])
+        {
+
+            currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(2).item]];
+            currentItemImage.gameObject.SetActive(true);
+            startDrag = true;
+            Debug.Log("if içi");
+        }
+
+        Debug.Log(LogicalInventory.getItemEnumfromInventory(2).item.ToString());
+
+    }
+    public void GetItemSlot3()
+    {
+        if (itemImages[LogicalInventory.getItemEnumfromInventory(3).index])
+        {
+            currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(3).item]];
+            currentItemImage.gameObject.SetActive(true);
+            startDrag = true;
+            Debug.Log("if içi");
+        }
+        Debug.Log(LogicalInventory.getItemEnumfromInventory(3).item.ToString());
+
+    }
 }
