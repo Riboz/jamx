@@ -1438,8 +1438,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 981914626}
   - {fileID: 465760607}
+  - {fileID: 981914626}
   m_Father: {fileID: 1154540743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2891,7 +2891,7 @@ GameObject:
   - component: {fileID: 465760609}
   - component: {fileID: 465760608}
   m_Layer: 5
-  m_Name: vCount 4
+  m_Name: vCoun4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2913,7 +2913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 161, y: -88.29999}
+  m_AnchoredPosition: {x: 161.00012, y: -88.2999}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &465760608
@@ -3358,7 +3358,7 @@ GameObject:
   - component: {fileID: 538885027}
   - component: {fileID: 538885026}
   m_Layer: 5
-  m_Name: invCount (1)
+  m_Name: invCount2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3380,7 +3380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 159, y: -91.7}
+  m_AnchoredPosition: {x: 159, y: -91.70003}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &538885026
@@ -6234,18 +6234,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986141956}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 838925703}
   - {fileID: 538885025}
-  m_Father: {fileID: 1154540743}
+  - {fileID: 838925703}
+  m_Father: {fileID: 1336301254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: 59}
+  m_AnchoredPosition: {x: 181, y: 2}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986141958
@@ -6976,12 +6976,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 35447832}
   - {fileID: 1336301254}
   - {fileID: 210270707}
-  - {fileID: 986141957}
   - {fileID: 254940167}
   - {fileID: 120451142}
+  - {fileID: 35447832}
   m_Father: {fileID: 311804478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -8070,6 +8069,7 @@ RectTransform:
   m_Children:
   - {fileID: 771982991}
   - {fileID: 1605181732}
+  - {fileID: 986141957}
   m_Father: {fileID: 1154540743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11090,7 +11090,7 @@ GameObject:
   - component: {fileID: 1785722192}
   - component: {fileID: 1785722191}
   m_Layer: 5
-  m_Name: invCount (3)
+  m_Name: invCount3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11112,7 +11112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 166.8, y: -89.29999}
+  m_AnchoredPosition: {x: 166.80006, y: -89.29999}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1785722191
@@ -11582,9 +11582,9 @@ MonoBehaviour:
   upperPanel: {fileID: 454996612}
   invCountText:
   - {fileID: 1605181733}
-  - {fileID: 465760608}
   - {fileID: 538885026}
   - {fileID: 1785722191}
+  - {fileID: 465760608}
   InventoryObj: {fileID: 2143871943}
   Chemical: 0
   Electric: 0

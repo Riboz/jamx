@@ -113,9 +113,9 @@ public class GameUI : MonoBehaviour
         LogicalInventory.Init();
 
         invCountText[0].text = "0";
-        invCountText[1].text = "1";
-        invCountText[2].text = "2";
-        invCountText[3].text = "3";
+        invCountText[1].text = "0";
+        invCountText[2].text = "0";
+        invCountText[3].text = "0";
     }
     public void FabricaOpen()
     {
@@ -145,7 +145,10 @@ public class GameUI : MonoBehaviour
             infoEnvt.text = Info + "/5";
             batteryEnvt.text = Electric + "/3";
             oreEnvt.text = Ore + "/3";
-            InventoryObj.GetComponent<InventorySc>().AddItem(Heatersp);
+            if (LogicalInventory.getItemIndex(LogicalInventory.ItemE.Heater) == -1) 
+            {
+                InventoryObj.GetComponent<InventorySc>().AddItem(Heatersp);
+            }
             LogicalInventory.editItem(LogicalInventory.ItemE.Heater, 1);
             int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Heater);
             invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
@@ -169,7 +172,10 @@ public class GameUI : MonoBehaviour
             chemicalEnvt.text = Chemical + "/3";
 
             oreEnvt.text = Ore + "/3";
-            InventoryObj.GetComponent<InventorySc>().AddItem(Coolersp);
+            if (LogicalInventory.getItemIndex(LogicalInventory.ItemE.Cooler) == -1)
+            {
+                InventoryObj.GetComponent<InventorySc>().AddItem(Coolersp);
+            }
             LogicalInventory.editItem(LogicalInventory.ItemE.Cooler, 1);
             int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Cooler);
             invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
@@ -188,7 +194,10 @@ public class GameUI : MonoBehaviour
             Info -= 1;
             infoEnvt.text = Info + "/5";
             batteryEnvt.text = Electric + "/3";
-            InventoryObj.GetComponent<InventorySc>().AddItem(enginesp);
+            if (LogicalInventory.getItemIndex(LogicalInventory.ItemE.Electric) == -1)
+            {
+                InventoryObj.GetComponent<InventorySc>().AddItem(enginesp);
+            }
             LogicalInventory.editItem(LogicalInventory.ItemE.Electric, 1);
             int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Electric);
             invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
@@ -207,7 +216,10 @@ public class GameUI : MonoBehaviour
             Info -= 1;
             infoEnvt.text = Info + "/5";
             chemicalEnvt.text = Chemical + "/3";
-            InventoryObj.GetComponent<InventorySc>().AddItem(Medicinesp);
+            if (LogicalInventory.getItemIndex(LogicalInventory.ItemE.Medicine) == -1)
+            {
+                InventoryObj.GetComponent<InventorySc>().AddItem(Medicinesp);
+            }
             LogicalInventory.editItem(LogicalInventory.ItemE.Medicine, 1);
             int index = LogicalInventory.getItemIndex(LogicalInventory.ItemE.Medicine);
             invCountText[index].text = LogicalInventory.getItemEnumfromInventory(index).count.ToString();
