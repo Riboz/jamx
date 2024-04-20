@@ -34,7 +34,7 @@ static public class LogicalInventory
     }
 
     static private InventorySlot[] activeInventory = new InventorySlot[4];
-    static public void Init() 
+    static public void Init()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -64,7 +64,7 @@ static public class LogicalInventory
 
         activeInventory[index].count = (activeInventory[index].count < (count * -1)) ? activeInventory[index].count : activeInventory[index].count + count;
 
-        if (activeInventory[index].count == 0) 
+        if (activeInventory[index].count == 0)
         {
             activeInventory[index].item = ItemE.Null;
             activeInventory[index].index = index;
@@ -77,10 +77,10 @@ static public class LogicalInventory
             return activeInventory[inventorySlotIndex];
         else
 
-            return new InventorySlot();          
+            return new InventorySlot();
     }
 
-    static public int getItemIndex(ItemE item) 
+    static public int getItemIndex(ItemE item)
     {
         for (int i = 0; i < 4; i++)
         {
@@ -101,11 +101,15 @@ public class GameUI : MonoBehaviour
     public Sprite Coolersp, Heatersp, Medicinesp, enginesp;
     [SerializeField] private Image FabricPanel, FabricButon, upperPanel;
     [SerializeField] private TMP_Text[] invCountText;
-    private bool Open = false;
+    [SerializeField] private Sprite[] itemImages;
+    [SerializeField] private Image[] itemSprites;
     public GameObject InventoryObj;
     public int Chemical, Electric, Info = 1, Ore;
-    
-    
+
+
+    private bool Open = false;
+    [SerializeField] private Image currentItemImage;
+
     public void Start()
     {
         StartCoroutine(ManufactoryRoutine());
@@ -117,6 +121,10 @@ public class GameUI : MonoBehaviour
         invCountText[2].text = "0";
         invCountText[3].text = "0";
     }
+
+
+
+
     public void FabricaOpen()
     {
         switch (Open)
@@ -145,7 +153,7 @@ public class GameUI : MonoBehaviour
             infoEnvt.text = Info + "/5";
             batteryEnvt.text = Electric + "/3";
             oreEnvt.text = Ore + "/3";
-            if (LogicalInventory.getItemIndex(LogicalInventory.ItemE.Heater) == -1) 
+            if (LogicalInventory.getItemIndex(LogicalInventory.ItemE.Heater) == -1)
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(Heatersp);
             }
@@ -321,5 +329,45 @@ public class GameUI : MonoBehaviour
         }
 
     }
+
+    public void GetItemSlot0()
+    {
+
+        //Determine which item it ha.
+        currentItemImage.GetComponent<Image>().sprite = itemImages[LogicalInventory.getItemEnumfromInventory(0).index];
+        Debug.Log(LogicalInventory.getItemEnumfromInventory(0).item.ToString());
+
+    }
+    public void GetItemSlot1()
+    {
+
+        //Determine which item it ha.
+        currentItemImage.GetComponent<Image>().sprite = itemImages[LogicalInventory.getItemEnumfromInventory(1).index];
+
+        Debug.Log(LogicalInventory.getItemEnumfromInventory(1).item);
+
+    }
+
+    public void GetItemSlot2()
+    {
+
+        //Determine which item it ha.
+        currentItemImage.GetComponent<Image>().sprite = itemImages[LogicalInventory.getItemEnumfromInventory(2).index];
+
+        Debug.Log(LogicalInventory.getItemEnumfromInventory(2).item.ToString());
+
+    }
+    public void GetItemSlot3()
+    {
+
+        //Determine which item it ha.
+        currentItemImage.GetComponent<Image>().sprite = itemImages[LogicalInventory.getItemEnumfromInventory(3).index];
+
+        Debug.Log(LogicalInventory.getItemEnumfromInventory(3).item.ToString());
+
+    }
+
+
+
 
 }
