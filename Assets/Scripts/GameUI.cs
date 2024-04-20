@@ -156,22 +156,20 @@ public class GameUI : MonoBehaviour
 
     private void Update()
     {
-        startDrag = true;
-
-
+        
         if (Input.GetMouseButton(0) && startDrag)
         {
             Vector3 cursorPosition = Input.mousePosition;
             cursorPosition.z = 0f;
             Vector3 worldPosition = mainCam.ScreenToWorldPoint(cursorPosition);
-            currentItemImage.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);
-            
-            if (Input.GetMouseButtonUp(0))
-            {
-                startDrag = false;
-                currentItemImage.gameObject.SetActive(false);
-            }
+            currentItemImage.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0f);       
         }
+        else if (Input.GetMouseButtonUp(0) && startDrag)
+        {
+            startDrag = false;
+            currentItemImage.gameObject.SetActive(false);
+        }
+
     }
     public void FabricaOpen()
     {
