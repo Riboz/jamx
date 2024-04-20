@@ -382,12 +382,8 @@ public class GameUI : MonoBehaviour
                 currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(0).item]];
                 currentItemImage.gameObject.SetActive(true);
                 startDrag = true;
-                Debug.Log("if içi");
-
             }
         }
-        Debug.Log(LogicalInventory.getItemEnumfromInventory(0).item.ToString());
-
     }
     public void GetItemSlot1()
     {
@@ -397,11 +393,7 @@ public class GameUI : MonoBehaviour
             currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(1).item]];
             currentItemImage.gameObject.SetActive(true);
             startDrag = true;
-            Debug.Log("if içi");
         }
-
-        Debug.Log(LogicalInventory.getItemEnumfromInventory(1).item);
-
     }
 
     public void GetItemSlot2()
@@ -412,11 +404,7 @@ public class GameUI : MonoBehaviour
             currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(2).item]];
             currentItemImage.gameObject.SetActive(true);
             startDrag = true;
-            Debug.Log("if içi");
         }
-
-        Debug.Log(LogicalInventory.getItemEnumfromInventory(2).item.ToString());
-
     }
     public void GetItemSlot3()
     {
@@ -425,9 +413,6 @@ public class GameUI : MonoBehaviour
             currentItemImage.GetComponent<Image>().sprite = itemImages[ImageID[(int)LogicalInventory.getItemEnumfromInventory(3).item]];
             currentItemImage.gameObject.SetActive(true);
             startDrag = true;
-            Debug.Log("if içi");
         }
-        Debug.Log(LogicalInventory.getItemEnumfromInventory(3).item.ToString());
-
     }
 }
