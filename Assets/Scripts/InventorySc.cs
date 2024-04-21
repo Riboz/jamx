@@ -16,9 +16,10 @@ public class InventorySc : MonoBehaviour
     public Sprite[] EnvButtonImage;
     public static bool Envfull=false;
     [SerializeField] private TMP_Text[] invCountText;
-    public void AddItem(Sprite ItemImage)
+    public void AddItem(Sprite ItemImage,int WhichItem)
     {
         int Counter=0;
+
         for(int i=0;i<EnvButtons.Length;i++)
         {
            
@@ -27,8 +28,12 @@ public class InventorySc : MonoBehaviour
 
                 EnvButtonImage[i]=ItemImage;
 
+                EnvButtons[i].GetComponent<ButtonItem>().WhichItem = WhichItem;
+
                 EnvButtons[i].GetComponent<Image>().sprite=EnvButtonImage[i];
+
                 EnvButtons[i].GetComponent<Image>().DOFade(1,0);
+
                 break;
             }
             else
@@ -58,28 +63,33 @@ public class InventorySc : MonoBehaviour
             case 0: 
                 EnvButtonImage[0]=null;
                 EnvButtons[0].GetComponent<Image>().sprite=null; 
-                LogicalInventory.editItem(LogicalInventory.getItemEnumfromInventory(0).item, LogicalInventory.getItemEnumfromInventory(0).count, true);
+                  EnvButtons[0].GetComponent<ButtonItem>().WhichItem=5; 
+              
                 invCountText[0].text = "0";
                 EnvButtons[0].GetComponent<Image>().DOFade(0.1f,0); 
+                
                 break;
             case 1: 
                 EnvButtonImage[1]=null;
                 EnvButtons[1].GetComponent<Image>().sprite=null; 
-                LogicalInventory.editItem(LogicalInventory.getItemEnumfromInventory(1).item, LogicalInventory.getItemEnumfromInventory(1).count, true);
+              
                 invCountText[1].text = "0";
                 EnvButtons[1].GetComponent<Image>().DOFade(0.1f,0); 
+                EnvButtons[1].GetComponent<ButtonItem>().WhichItem=5; 
                 break;
             case 2: 
                 EnvButtonImage[2]=null;
                 EnvButtons[2].GetComponent<Image>().sprite=null; 
-                LogicalInventory.editItem(LogicalInventory.getItemEnumfromInventory(2).item, LogicalInventory.getItemEnumfromInventory(2).count, true);
+                
                 invCountText[2].text = "0";
-                EnvButtons[2].GetComponent<Image>().DOFade(0.1f,0); 
+                EnvButtons[2].GetComponent<Image>().DOFade(0.1f,0);
+                EnvButtons[2].GetComponent<ButtonItem>().WhichItem=5;  
                 break;
             case 3: 
                 EnvButtonImage[3]=null;
                 EnvButtons[3].GetComponent<Image>().sprite=null; 
-                LogicalInventory.editItem(LogicalInventory.getItemEnumfromInventory(3).item, LogicalInventory.getItemEnumfromInventory(3).count, true);
+                EnvButtons[3].GetComponent<ButtonItem>().WhichItem=5; 
+               
                 invCountText[3].text = "0";
                 EnvButtons[3].GetComponent<Image>().DOFade(0.1f,0); 
                 break;
