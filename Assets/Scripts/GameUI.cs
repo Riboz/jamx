@@ -256,7 +256,7 @@ public class GameUI : MonoBehaviour
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(Coolersp);
             }
-            updateInventory(items[(int)LogicalInventory.ItemE.Cooler], 1);
+            updateInventory(items[(int)LogicalInventory.ItemE.Cooler], 0);
             //Üretilen malzeme Malzeme Deposuna gidicek
         }
         else
@@ -276,7 +276,7 @@ public class GameUI : MonoBehaviour
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(enginesp);
             }
-            updateInventory(items[(int)LogicalInventory.ItemE.Generator], 1);
+            updateInventory(items[(int)LogicalInventory.ItemE.Generator], 3);
             //Üretilen malzeme Malzeme Deposuna gidicek
         }
         else
@@ -296,7 +296,7 @@ public class GameUI : MonoBehaviour
             {
                 InventoryObj.GetComponent<InventorySc>().AddItem(Medicinesp);
             }
-            updateInventory(items[(int)LogicalInventory.ItemE.Medicine], 1);
+            updateInventory(items[(int)LogicalInventory.ItemE.Medicine], 2);
             //Üretilen malzeme Malzeme Deposuna gidicek
         }
         else
@@ -396,7 +396,7 @@ public class GameUI : MonoBehaviour
         //Determine which item it ha.
         if (itemImages[LogicalInventory.getItemEnumfromInventory(0).index])
         {
-
+            
             if (currentItemImage.GetComponent<Image>())
             {
                 currentItemImage.GetComponent<Image>().sprite = itemImages[items[(int)LogicalInventory.getItemEnumfromInventory(0).item].ImageID];
