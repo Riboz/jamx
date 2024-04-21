@@ -36,7 +36,15 @@ public class Hint : MonoBehaviour
         
 
     }
- 
+
+    private void Update()
+    {
+        if(Input.GetMouseButtonDown(0) && workingCount > 2)
+        {
+            hintField.text = "";
+            hintPanelTransform.DOLocalMoveY(initialPos, 0.5f);
+        }
+    }
 
     private void TutorialSequence()
     {

@@ -109,7 +109,7 @@ public class GameUI : MonoBehaviour
             batteryEnvt.text = Electric + "/3";
             oreEnvt.text = Ore + "/3";
            
-                InventoryObj.GetComponent<InventorySc>().AddItem(Heatersp,2);
+           InventoryObj.GetComponent<InventorySc>().AddItem(Heatersp,2);
 
            
             //Üretilen malzeme Malzeme Deposuna gidicek
