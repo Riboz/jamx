@@ -30,7 +30,7 @@ public class GameUI : MonoBehaviour
     private bool Open = false;
     public Button[] EnvButtons;
     
-    public GameObject InventoryObj;
+    public GameObject InventoryObj, disasterObj,Planet;
     public int Chemical, Electric, Info = 1, Ore;
     [SerializeField] private Image currentItemImage;
     [SerializeField] private Sprite[] itemImages;
@@ -43,14 +43,31 @@ public class GameUI : MonoBehaviour
     [Header("Envanterdeki")]
     [SerializeField] private TMP_Text batteryEnvt, chemicalEnvt, oreEnvt, infoEnvt;
 
-    
+    public Sprite Mars,Karantina,Catlak,Donmuk;
 
     
     private bool startDrag = false;
 
     public void Start()
     {
-
+        if(DisasterManager.Gezegen==0)
+        {
+            Planet.GetComponent<SpriteRenderer>().sprite=Karantina;
+        }
+       
+         else if(DisasterManager.Gezegen==1)
+        {
+            Planet.GetComponent<SpriteRenderer>().sprite=Catlak;
+        }
+         else if(DisasterManager.Gezegen==2)
+        {
+            Planet.GetComponent<SpriteRenderer>().sprite=Mars;
+        }
+        else if(DisasterManager.Gezegen==3)
+        {
+            Planet.GetComponent<SpriteRenderer>().sprite=Donmuk;
+        }
+       
         StartCoroutine(ManufactoryRoutine());
         StartCoroutine(UpperPanelActivate());
       
@@ -75,6 +92,7 @@ public class GameUI : MonoBehaviour
         else if (Input.GetMouseButtonUp(0) && startDrag)
         {
             startDrag = false;
+            disasterObj.GetComponent<DisasterManager>().DistaterSolver(currentItemImage.GetComponent<ButtonItem>().WhichItem);
              currentItemImage.GetComponent<ButtonItem>().WhichItem = 5;
             currentItemImage.gameObject.SetActive(false);
         }
