@@ -67,7 +67,7 @@ public class DisasterManager : MonoBehaviour
 
     void Start()
     {       
-        Win = false;
+        Win=false;
         StartCoroutine(WaitingFunction());
     }
     
@@ -188,7 +188,12 @@ public class DisasterManager : MonoBehaviour
             else if(correction==2)
         {
             // Başarılı
-            
+             NumberAdded[0]=5;
+            NumberAdded[1]=5;
+            correction=0;
+                Win=true;
+            adding=-1;
+            StartCoroutine(WaitingFunction());
             switch(disasterIndex)
             {
                 case 0: StopSolarStorm(); break;
@@ -196,12 +201,8 @@ public class DisasterManager : MonoBehaviour
                 case 2: StopPlague();break;
                 case 3: StopFreeze();break;
             }
-            NumberAdded[0]=5;
-            NumberAdded[1]=5;
-            correction=0;
-            Win = true;
-            adding=-1;
-            StartCoroutine(WaitingFunction());
+           
+            
            
             
             
@@ -215,25 +216,18 @@ public class DisasterManager : MonoBehaviour
     }
     private IEnumerator WaitingFunction()
     {
-   
+        
         yield return new WaitForSeconds((int)Random.Range(10,15f));
         
         CallDisaster(NextDisasterDecide());
-        yield break;
+
+        yield return new WaitForSeconds((int)Random.Range(10,15f));
+
+         StartCoroutine(WaitingFunction());
+        
 
     }
-    private IEnumerator WinWaitingFunction()
-    {
-    
-       
-        
-        yield return new WaitForSeconds((int)Random.Range(10,15f));
-        
-        CallDisaster(NextDisasterDecide());
-       
-         yield break;
-        
-    }
+   
     private void Earthquake()
     {
          
@@ -301,7 +295,7 @@ public class DisasterManager : MonoBehaviour
         if(!Win)
         {
              Gezegen=0;
-             SceneManager.LoadScene(0);
+             SceneManager.LoadScene(1);
         }
         
        
@@ -319,7 +313,7 @@ public class DisasterManager : MonoBehaviour
         if(!Win)
         {
              Gezegen=1;
-             SceneManager.LoadScene(0);
+             SceneManager.LoadScene(1);
         }
          
     }
@@ -341,7 +335,7 @@ public class DisasterManager : MonoBehaviour
         if(!Win)
         {
              Gezegen=2;
-             SceneManager.LoadScene(0);
+             SceneManager.LoadScene(1);
         }
         
     }
@@ -357,7 +351,7 @@ public class DisasterManager : MonoBehaviour
         if(!Win)
         {
              Gezegen=3;
-             SceneManager.LoadScene(0);
+             SceneManager.LoadScene(1);
         }
         
         
