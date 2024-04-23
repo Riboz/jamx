@@ -214,25 +214,25 @@ public class GameUI : MonoBehaviour
     }
     public void ManufacturingChemical()
     {
-        if (Info >= 3)
+        if (Info >= 2)
         {
             chemicalTxt.gameObject.SetActive(false);
             chemicalMnButton.enabled = false;
             chemicalB = true;
             chemicalMnButton.GetComponentInChildren<PlanetRotation>().restart();
-            Info -= 3;
+            Info -= 2;
             infoEnvt.text = Info + "/5";
         }
     }
     public void ManufacturingOre()
     {
-        if (Info >= 4)
+        if (Info >=2)
         {
             oreTxt.gameObject.SetActive(false);
             oreB = true;
             oreMnButton.enabled = false;
             oreMnButton.GetComponentInChildren<PlanetRotation>().restart();
-            Info -= 4;
+            Info -= 2;
             infoEnvt.text = Info + "/5";
         }
     }
@@ -255,7 +255,7 @@ public class GameUI : MonoBehaviour
         while (true)
         {
             //TODO change it back to 5
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(3f);
 
             if (infoB && Info < 5)
             {

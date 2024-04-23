@@ -18,7 +18,7 @@ public class DisasterManager : MonoBehaviour
     [SerializeField] private string[] disasterTypes;
     [SerializeField] private CinemachineVirtualCamera mainCamera;
 
-    
+    public TMP_Text textCount;
     public int disasterIndex = -1;
 
     public int currentDisasters = 0;
@@ -97,6 +97,9 @@ public class DisasterManager : MonoBehaviour
     }
     private void CallDisaster(string disasterName)
     {
+          Win=false;
+        StartCoroutine(CountDowns());
+      
         switch (disasterName)
         {
             case "Solar":
@@ -121,10 +124,12 @@ public class DisasterManager : MonoBehaviour
             case "Freeze":
                 Freeze();
                 disasterIndex = 3;
-                 Win=false;
+                 
                 break;
 
         }
+        
+
         switch (disasterIndex)
         {
             case 0:  
@@ -148,7 +153,44 @@ public class DisasterManager : MonoBehaviour
 
 
         }
-
+        
+        StartCoroutine(EndOfTheWorld());
+         
+    }
+    
+    IEnumerator CountDowns()
+    {
+        
+              for(int i=15;i>0;i--) 
+        {
+            if(!Win)
+        {
+            textCount.text=""+i;
+            yield return new WaitForSeconds(1);
+        }
+            else break;
+        }
+        
+       textCount.text=""; 
+       
+        
+    }
+    IEnumerator EndOfTheWorld()
+    {   
+        
+        yield return new WaitForSeconds(15);
+      
+        if(!Win)
+        {
+            switch(disasterIndex)
+            {
+                case 0: StopSolarStorm(); break;
+                case 1: StopEarthquake();break;
+                case 2: StopPlague();break;
+                case 3: StopFreeze();break;
+            }
+        }
+        
     }
       //cooler0 generastror 1 heater 2 medicine 3
         public  int adding=-1;
@@ -171,6 +213,7 @@ public class DisasterManager : MonoBehaviour
                     correction+=1;
                 }
             }
+
             for(int i=0; i<NumberAdded.Length;i++)
             {
                 if(NumberNeeded[1]==NumberAdded[i])
@@ -178,22 +221,24 @@ public class DisasterManager : MonoBehaviour
                     correction+=1;
                 }
             }
+
              if(correction!=2)
         {
             // Yeni sahne burada değişsin
             
-          SceneManager.LoadScene(0);
+          SceneManager.LoadScene(1);
             
         }
             else if(correction==2)
         {
             // Başarılı
+           
              NumberAdded[0]=5;
             NumberAdded[1]=5;
             correction=0;
                 Win=true;
             adding=-1;
-            StartCoroutine(WaitingFunction());
+           
             switch(disasterIndex)
             {
                 case 0: StopSolarStorm(); break;
@@ -203,29 +248,20 @@ public class DisasterManager : MonoBehaviour
             }
            
             
-           
             
+             StopCoroutine(CountDowns());
+             textCount.text="";
             
         }
         }  
-        
-           
-           
-
-
     }
     private IEnumerator WaitingFunction()
     {
         
-        yield return new WaitForSeconds((int)Random.Range(10,15f));
+        yield return new WaitForSeconds((int)Random.Range(13,18f));
         
-        CallDisaster(NextDisasterDecide());
-
-        yield return new WaitForSeconds((int)Random.Range(10,15f));
-
-         StartCoroutine(WaitingFunction());
+        CallDisaster(NextDisasterDecide());        
         
-
     }
    
     private void Earthquake()
@@ -241,8 +277,6 @@ public class DisasterManager : MonoBehaviour
  
         Debug.Log("Earthquake is happening gg");
     }
-
-
     private void SolarStorm()
     {
          
@@ -258,7 +292,6 @@ public class DisasterManager : MonoBehaviour
         
         
     }
-
     private void Freeze()
     {
         
@@ -269,8 +302,6 @@ public class DisasterManager : MonoBehaviour
         Debug.Log("Its freezing"); Win=false;
        
     }
-
-
     private void Plague()
     {
        
@@ -291,7 +322,7 @@ public class DisasterManager : MonoBehaviour
         plagueSound.Stop();
         Debug.Log("Plague is stopped");
        
-        
+        StartCoroutine(WaitingFunction());
         if(!Win)
         {
              Gezegen=0;
@@ -309,7 +340,7 @@ public class DisasterManager : MonoBehaviour
             disasterIndex = -1;
         }
         earthquakeSound.Stop();
-        
+        StartCoroutine(WaitingFunction());
         if(!Win)
         {
              Gezegen=1;
@@ -317,8 +348,6 @@ public class DisasterManager : MonoBehaviour
         }
          
     }
-
-
     private void StopSolarStorm()
     {
         
@@ -331,7 +360,7 @@ public class DisasterManager : MonoBehaviour
         disasterIndex = -1;
         sunSound.Stop();
         Debug.Log("Solar is storm is resolved.");
-      
+        StartCoroutine(WaitingFunction());
         if(!Win)
         {
              Gezegen=2;
@@ -346,14 +375,14 @@ public class DisasterManager : MonoBehaviour
         winterFilter.gameObject.SetActive(false);
         winterObject.gameObject.SetActive(false);
         freezeSound.Stop();
-      
-     
+        StartCoroutine(WaitingFunction());
         if(!Win)
         {
              Gezegen=3;
              SceneManager.LoadScene(1);
         }
         
+       
         
     }
    
@@ -398,9 +427,4 @@ public class DisasterManager : MonoBehaviour
         }
 
     }
-
-
-
-
-
 }
